@@ -20,7 +20,7 @@ const Home: React.FC = () => {
       sx={{
         height: {
           xs: '100vh', // Apply full viewport height on xs screens
-          // sm: "auto", // Default height for sm screens and up
+          sm: 'auto', // Default height for sm screens and up
         },
         display: 'flex',
         justifyContent: {
@@ -29,7 +29,7 @@ const Home: React.FC = () => {
         },
         alignItems: {
           xs: 'center', // Center content vertically on xs screens
-          sm: 'flex-start', // Align to the start for sm screens and up
+          // sm: 'flex-start', // Align to the start for sm screens and up
         },
       }}
     >
@@ -112,7 +112,7 @@ const Home: React.FC = () => {
         <Typography variant="h2" mb={1}>
           Create Account
         </Typography>
-        <Typography variant="body2" color="textSecondary" mb={3}>
+        <Typography variant="body2" color="textSecondary" mb={{ xs: 1, sm: 3 }}>
           Get connect with your best doctor today.
         </Typography>
 

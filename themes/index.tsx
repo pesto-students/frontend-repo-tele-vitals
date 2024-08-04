@@ -1,22 +1,17 @@
-import { createTheme } from "@mui/material/styles";
+import { createTheme } from '@mui/material/styles';
 
 // assets
-import colors from "../public/assets/scss/_themes-vars.module.scss";
+import colors from '../public/assets/scss/_themes-vars.module.scss';
 
 // project imports
-import componentStyleOverrides from "./compStyleOverride";
-import themePalette from "./palette";
-import themeTypography from "./typography";
+import componentStyleOverrides from './compStyleOverride';
+import themePalette from './palette';
+import themeTypography from './typography';
 
 /**
  * Represent theme style and structure as per Material-UI
  * @param {JsonObject} customization customization parameter object
  */
-
-const breakpoints = {
-  keys: ["xs", "sm", "md", "lg", "xl", "xxl"],
-  values: { xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536, xxl: 1920 },
-};
 
 export const theme = (customization: any) => {
   const color = colors;
@@ -36,24 +31,25 @@ export const theme = (customization: any) => {
     customization,
   };
 
-  const themeOptions = {
-    direction: "ltr",
-    breakpoints,
+  const themeOptions = createTheme({
+    direction: 'ltr',
+    breakpoints: {
+      values: { xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536 },
+    },
     palette: themePalette(themeOption),
     mixins: {
       toolbar: {
-        minHeight: "48px",
-        padding: "16px",
-        "@media (min-width: 600px)": {
-          minHeight: "48px",
+        minHeight: '48px',
+        padding: '16px',
+        '@media (min-width: 600px)': {
+          minHeight: '48px',
         },
       },
     },
-    typography: themeTypography(themeOption),
-  };
-
-  const themes = createTheme(themeOptions);
-  themes.components = componentStyleOverrides(themeOption);
+    typography: themeTypography(themeOption) as any,
+    components: componentStyleOverrides(themeOption) as any,
+  });
+  const themes = themeOptions;
 
   return themes;
 };
