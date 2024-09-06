@@ -1,0 +1,36 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  scroll-behavior: smooth !important;
+  background-color: #F6F5FA;
+}
+a {
+  text-decoration: none; /* Remove underline from all links */
+  color: #6D31ED;           /* Optional: Set link color */
+}
+*::-webkit-scrollbar {
+  width: 5px;
+  height: 0.3rem;
+}
+
+*:hover::-webkit-scrollbar {
+  width: 5px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #cdcdcd;
+  border-radius: 10px;
+  opacity: 0.5;
+}
+
+*::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
