@@ -16,7 +16,6 @@
     "@mui/icons-material": "^5.16.6",
     "@mui/material": "^5.16.6",
     "@mui/x-date-pickers": "^7.15.0",
-    "@phosphor-icons/react": "^2.1.7",
     "dayjs": "^1.11.13",
     "formik": "^2.4.6",
     "next": "14.2.5",
