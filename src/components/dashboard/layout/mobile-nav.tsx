@@ -172,8 +172,7 @@ function NavItem({
                   ? 'var(--NavItem-icon-active-color)'
                   : 'var(--NavItem-icon-color)'
               }
-              fontSize="var(--icon-fontSize-md)"
-              weight={active ? 'fill' : undefined}
+              // weight={active ? 'fill' : undefined}
             />
           ) : null}
         </Box>
