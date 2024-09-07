@@ -10,7 +10,7 @@ interface DataRow {
 interface Props {
   data: DataRow[];
 }
-const getChipColor = (value) => {
+const getChipColor = (value: any) => {
   switch (value) {
     case 'High':
       return '#FFCDCD'; // High color
