@@ -32,7 +32,7 @@ const columns = [
     heading: 'Priority',
     accessor: 'status',
     width: 240,
-    Cell: ({ row }) => (
+    Cell: ({ row }: any) => (
       <Chip
         label={row.status}
         sx={{
