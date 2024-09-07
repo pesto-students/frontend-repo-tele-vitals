@@ -13,10 +13,7 @@ import { Box, Typography, TextField, IconButton } from '@mui/material';
 
 interface VitalsModalProps {
   open: boolean;
-  handleClose?: (
-    event?: React.SyntheticEvent<any>,
-    reason?: 'backdropClick' | 'escapeKeyDown'
-  ) => void;
+  handleClose?: () => void;
   handleSubmit?: () => void;
 }
 const formValidationSchema = object({
