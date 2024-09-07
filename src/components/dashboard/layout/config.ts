@@ -5,6 +5,12 @@ export const navItems = [
   {
     key: 'dashboard',
     title: 'Dashboard',
+    href: paths['doctor-dashboard'],
+    icon: 'dashboard',
+  },
+  {
+    key: 'dashboard',
+    title: 'Dashboard',
     href: paths['patient-dashboard'],
     icon: 'dashboard',
   },

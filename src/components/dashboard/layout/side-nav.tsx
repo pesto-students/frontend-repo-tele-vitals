@@ -83,11 +83,21 @@ function renderNavItems({
   items?: NavItemConfig[];
   pathname: string;
 }): React.JSX.Element {
+  const checked = localStorage.getItem('checked') === 'true';
+
   const children = items.reduce(
-    (acc: React.ReactNode[], curr: NavItemConfig): React.ReactNode[] => {
+    (acc: React.ReactNode[], curr: NavItemConfig, index): React.ReactNode[] => {
       const { key, ...item } = curr;
 
-      acc.push(<NavItem key={key} pathname={pathname} {...item} />);
+      // If checked is true, only add the first item
+      if (checked && index === 0) {
+        acc.push(<NavItem key={key} pathname={pathname} {...item} />);
+      }
+
+      // If checked is false, skip the first item and add the rest
+      if (!checked && index !== 0) {
+        acc.push(<NavItem key={key} pathname={pathname} {...item} />);
+      }
 
       return acc;
     },
