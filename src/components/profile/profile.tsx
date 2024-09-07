@@ -2,7 +2,6 @@
 import React from 'react';
 import {
   Avatar,
-  Box,
   Button,
   Container,
   Grid,
@@ -40,7 +39,7 @@ const Profile: React.FC = () => {
           <Grid item>
             <Typography variant="body1" align="center">
               A short bio about the user goes here. This section can describe
-              the user's interests, job, or any other relevant details they want
+              the users interests, job, or any other relevant details they want
               to share.
             </Typography>
           </Grid>
