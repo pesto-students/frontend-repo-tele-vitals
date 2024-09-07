@@ -1,6 +1,7 @@
 import React from 'react';
 import { config } from '@/config';
 import type { Metadata } from 'next';
+import Vitals from '@/components/vitals/vitals';
 
 export const metadata = {
   title: `Vitals Information | ${config.site.name}`,
@@ -9,7 +10,7 @@ export const metadata = {
 type Props = {};
 
 const pageVitals = (props: Props) => {
-  return <div>pageVitals</div>;
+  return <Vitals />;
 };
 
 export default pageVitals;

@@ -1,6 +1,6 @@
 'use client';
-
 import { ThemeProvider } from '@mui/material/styles';
+import { SnackbarProvider } from 'notistack';
 import theme from '@/themes/index';
 
 export default function ClientThemeProvider({
@@ -9,5 +9,9 @@ export default function ClientThemeProvider({
   children: React.ReactNode;
 }>) {
   const customization = {};
-  return <ThemeProvider theme={theme(customization)}>{children}</ThemeProvider>;
+  return (
+    <ThemeProvider theme={theme(customization)}>
+      <SnackbarProvider>{children}</SnackbarProvider>
+    </ThemeProvider>
+  );
 }

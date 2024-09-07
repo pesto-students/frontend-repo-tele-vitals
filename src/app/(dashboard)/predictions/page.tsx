@@ -1,6 +1,7 @@
 import React from 'react';
 import { config } from '@/config';
 import type { Metadata } from 'next';
+import Predictions from '@/components/predictions/predictions';
 
 export const metadata = {
   title: `Predictions Information | ${config.site.name}`,
@@ -9,7 +10,7 @@ export const metadata = {
 type Props = {};
 
 const pagePredictions = (props: Props) => {
-  return <div>pagePredictions</div>;
+  return <Predictions />;
 };
 
 export default pagePredictions;

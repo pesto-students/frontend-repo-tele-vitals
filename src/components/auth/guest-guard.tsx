@@ -7,6 +7,7 @@ import Alert from '@mui/material/Alert';
 import { paths } from '@/paths';
 import { logger } from '@/lib/default-logger';
 import { useUser } from '@/hooks/use-user';
+import SwalToast from '../common/SwalTost';
 
 export interface GuestGuardProps {
   children: React.ReactNode;
@@ -31,6 +32,10 @@ export function GuestGuard({
 
     if (user) {
       logger.debug('[GuestGuard]: User is logged in, redirecting to dashboard');
+      SwalToast({
+        icon: 'success', // Use error instead of success for invalid credentials
+        title: 'User is logged in, redirecting to dashboard.',
+      });
       router.replace(paths['patient-dashboard']);
       return;
     }

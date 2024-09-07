@@ -37,7 +37,7 @@ export function UserProvider({
   const checkSession = React.useCallback(async (): Promise<void> => {
     try {
       const { data, error } = await authClient.getUser();
-
+      console.log(data, error);
       if (error) {
         logger.error(error);
         setState((prev) => ({

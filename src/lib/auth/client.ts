@@ -1,5 +1,6 @@
 'use client';
 
+import SwalToast from '@/components/common/SwalTost';
 import type { User } from '@/types/user';
 
 function generateToken(): string {
@@ -24,7 +25,7 @@ export interface SignUpParams {
 }
 
 export interface SignInWithOAuthParams {
-  provider: 'google' | 'discord';
+  provider: 'google' | 'facebook';
 }
 
 export interface SignInWithPasswordParams {
@@ -53,20 +54,22 @@ class AuthClient {
 
   async signInWithPassword(
     params: SignInWithPasswordParams
-  ): Promise<{ error?: string }> {
+  ): Promise<void> {
     const { username, password } = params;
 
     // Make API request
 
     // We do not handle the API, so we'll check if the credentials match with the hardcoded ones.
     if (username !== 'himanshu@gmail.com' || password !== 'Himanshu@123') {
-      return { error: 'Invalid credentials' };
+      SwalToast({
+        icon: 'error', // Use error instead of success for invalid credentials
+        title: 'Invalid credentials. Please try again.',
+      });
+      return;
     }
 
     const token = generateToken();
     localStorage.setItem('custom-auth-token', token);
-
-    return {};
   }
 
   async resetPassword(_: ResetPasswordParams): Promise<{ error?: string }> {

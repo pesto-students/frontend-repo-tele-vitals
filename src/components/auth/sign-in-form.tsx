@@ -51,15 +51,12 @@ const SignInForm: React.FC = () => {
     onSubmit: async (values) => {
       try {
         setIsPending(true);
-        const { error } = await authClient.signInWithPassword(values);
-
-        if (error) {
-          formikForm.setErrors({
-            root: { type: 'server', message: error.message },
-          });
+        await authClient.signInWithPassword(values);
+        // console.log(error, 'dssfsdf');
+        // if (error) {
           setIsPending(false);
-          return;
-        }
+        //   return;
+        // }
 
         // Refresh the auth state
         await checkSession?.();

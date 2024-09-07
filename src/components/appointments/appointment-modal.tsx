@@ -28,7 +28,9 @@ interface VitalsModalProps {
   handleSubmit?: () => void;
 }
 const formValidationSchema = object({
-  doctor: string().required('Required'),
+  doctor: object().shape({
+    label: string().required('Required'),
+  }),
   issue: string().required('Required'),
   comment: string().required('Required'),
   dateTime: date()
@@ -55,7 +57,7 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
 }) => {
   const formikForm = useFormik({
     initialValues: {
-      doctor: '',
+      doctor: { label: '' },
       issue: '',
       comment: '',
       dateTime: null,
@@ -99,12 +101,28 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
                 disablePortal
                 options={options}
                 popupIcon={<KeyboardArrowDownIcon />}
+                value={formikForm.values.doctor}
+                onChange={(_e, newValue) => {
+                  formikForm.setFieldValue('doctor', newValue);
+                }}
                 renderInput={(params) => (
                   <TextField
                     {...params}
                     size="small"
+                    name="doctor"
                     label="Select Doctor"
+                    InputLabelProps={{ shrink: true }}
                     placeholder="Select Doctor"
+                    // {...formikForm.getFieldProps('doctor')}
+                    onBlur={formikForm.handleBlur}
+                    error={
+                      formikForm.touched.doctor?.label &&
+                      Boolean(formikForm.errors.doctor?.label)
+                    }
+                    helperText={
+                      formikForm.touched.doctor?.label &&
+                      formikForm.errors.doctor?.label
+                    }
                   />
                 )}
               />
@@ -114,7 +132,7 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
                 <TextField
                   id="outlined-hr"
                   label="Reason for appointment"
-                  placeholder="Enter value"
+                  placeholder="Enter issue"
                   multiline
                   {...formikForm.getFieldProps('issue')}
                   error={
@@ -129,7 +147,7 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
                 <TextField
                   id="outlined-comment"
                   label="Additional comments/notes"
-                  placeholder="Enter value"
+                  placeholder="Enter comment"
                   multiline
                   {...formikForm.getFieldProps('comment')}
                   error={
