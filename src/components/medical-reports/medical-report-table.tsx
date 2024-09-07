@@ -22,7 +22,7 @@ const columns = [
     heading: 'Actions',
     accessor: 'action',
     width: 100,
-    Cell: ({ row }) => (
+    Cell: () => (
       <Box display="flex" gap={2}>
         <IconButton
           aria-label="close"
