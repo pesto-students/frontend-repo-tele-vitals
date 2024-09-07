@@ -223,10 +223,7 @@ const DoctorPage = (props: Props) => {
                   </Box>
                 </Box>
                 <Box>
-                  <HelpOutlineOutlinedIcon
-                    fontSize="small"
-                    color="text.secondary"
-                  />
+                  <HelpOutlineOutlinedIcon fontSize="small" />
                 </Box>
               </Box>
             </Paper>
