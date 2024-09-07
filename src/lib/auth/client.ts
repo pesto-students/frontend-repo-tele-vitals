@@ -1,6 +1,6 @@
 'use client';
 
-import SwalToast from '@/components/common/SwalTost';
+import ToastMessage from '@/components/common/toast-message';
 import type { User } from '@/types/user';
 
 function generateToken(): string {
@@ -61,7 +61,7 @@ class AuthClient {
 
     // We do not handle the API, so we'll check if the credentials match with the hardcoded ones.
     if (username !== 'himanshu@gmail.com' || password !== 'Himanshu@123') {
-      SwalToast({
+      ToastMessage({
         icon: 'error', // Use error instead of success for invalid credentials
         title: 'Invalid credentials. Please try again.',
       });
