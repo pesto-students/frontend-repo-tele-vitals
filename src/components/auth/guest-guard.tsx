@@ -7,7 +7,7 @@ import Alert from '@mui/material/Alert';
 import { paths } from '@/paths';
 import { logger } from '@/lib/default-logger';
 import { useUser } from '@/hooks/use-user';
-import SwalToast from '../common/SwalTost';
+import ToastMessage from '../common/toast-message';
 
 export interface GuestGuardProps {
   children: React.ReactNode;
@@ -32,7 +32,7 @@ export function GuestGuard({
 
     if (user) {
       logger.debug('[GuestGuard]: User is logged in, redirecting to dashboard');
-      SwalToast({
+      ToastMessage({
         icon: 'success', // Use error instead of success for invalid credentials
         title: 'User is logged in, redirecting to dashboard.',
       });

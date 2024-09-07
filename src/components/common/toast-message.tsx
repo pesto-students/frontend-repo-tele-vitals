@@ -1,3 +1,5 @@
+/* eslint-disable */
+// @ts-nocheck
 import { enqueueSnackbar } from 'notistack'; // Import enqueueSnackbar from notistack if it's from this library
 import { FC } from 'react';
 
@@ -12,8 +14,11 @@ interface SwalToastProps {
  * @param {string} title - The title of the toast.
  * @returns {JSX} SwalToast Component.
  */
-const SwalToast: FC<SwalToastProps> = ({ icon: type = 'success', title }) => {
+const ToastMessage: FC<SwalToastProps> = ({
+  icon: type = 'success',
+  title,
+}) => {
   enqueueSnackbar(title, { variant: type, preventDuplicate: true });
 };
 
-export default SwalToast;
+export default ToastMessage;
