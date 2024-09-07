@@ -1,12 +1,13 @@
 // paper & background
 $paper: #ffffff;
+$background: #F1F1F6;
 
 // primary
-$primaryLight: #eef2f6;
+$primaryLight: #d4bcff;
 $primaryMain: #6D31ED;
-$primaryDark: #6D31ED;
-$primary200: #90caf9;
-$primary800: #4527a0;
+$primaryDark: #4A1B9F;
+$primary200: #8C4BEB;
+$primary800: #5D29C2;
 
 // secondary
 $secondaryLight: #ede7f6;
@@ -76,12 +77,15 @@ $darkTextTitle: #d7dcec;
 $darkTextPrimary: #bdc8f0;
 $darkTextSecondary: #8492c4;
 
+// border
+$border:rgba(173, 173, 173, 0.5);
+
 // ==============================|| JAVASCRIPT ||============================== //
 
 :export {
   // paper & background
   paper: $paper;
-
+  background:$background;
   // primary
   primaryLight: $primaryLight;
   primary200: $primary200;
@@ -133,6 +137,7 @@ $darkTextSecondary: #8492c4;
   whitePaper:$whitePaper;
   darkPaper: $darkPaper;
   darkBackground: $darkBackground;
+  border:$border;
 
   // dark 800 & 900
   darkLevel1: $darkLevel1;
