@@ -10,6 +10,7 @@ export interface UserContextValue {
   user: User | null;
   error: string | null;
   isLoading: boolean;
+  checked: boolean;
   checkSession?: () => Promise<void>;
 }
 
@@ -28,16 +29,17 @@ export function UserProvider({
     user: User | null;
     error: string | null;
     isLoading: boolean;
+    checked: boolean;
   }>({
     user: null,
     error: null,
     isLoading: true,
+    checked: false,
   });
 
   const checkSession = React.useCallback(async (): Promise<void> => {
     try {
-      const { data, error } = await authClient.getUser();
-      console.log(data, error);
+      const { data, checked, error } = await authClient.getUser();
       if (error) {
         logger.error(error);
         setState((prev) => ({
@@ -45,6 +47,7 @@ export function UserProvider({
           user: null,
           error: 'Something went wrong',
           isLoading: false,
+          checked: false,
         }));
         return;
       }
@@ -54,6 +57,7 @@ export function UserProvider({
         user: data ?? null,
         error: null,
         isLoading: false,
+        checked,
       }));
     } catch (err) {
       logger.error(err);
@@ -62,6 +66,7 @@ export function UserProvider({
         user: null,
         error: 'Something went wrong',
         isLoading: false,
+        checked: false,
       }));
     }
   }, []);

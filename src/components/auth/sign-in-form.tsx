@@ -14,6 +14,8 @@ import {
   Button,
   IconButton,
   InputAdornment,
+  Checkbox,
+  FormControlLabel,
 } from '@mui/material';
 import GoogleIcon from '@mui/icons-material/Google';
 import FacebookIcon from '@mui/icons-material/Facebook';
@@ -46,6 +48,7 @@ const SignInForm: React.FC = () => {
     initialValues: {
       username: 'himanshu@gmail.com',
       password: 'Himanshu@123',
+      checked: false,
     },
     validationSchema: formValidationSchema,
     onSubmit: async (values) => {
@@ -54,7 +57,7 @@ const SignInForm: React.FC = () => {
         await authClient.signInWithPassword(values);
         // console.log(error, 'dssfsdf');
         // if (error) {
-          setIsPending(false);
+        setIsPending(false);
         //   return;
         // }
 
@@ -177,7 +180,21 @@ const SignInForm: React.FC = () => {
               ),
             }}
           />
-          <Box display="flex" justifyContent="flex-end">
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <FormControlLabel
+              control={
+                <Checkbox
+                  name="checked"
+                  checked={formikForm.values.checked}
+                  onChange={formikForm.handleChange}
+                />
+              }
+              label="Are you a doctor?"
+            />
             <Link
               style={{ textDecoration: 'none' }}
               // component={RouterLink}

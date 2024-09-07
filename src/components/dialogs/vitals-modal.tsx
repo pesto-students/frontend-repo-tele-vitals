@@ -10,6 +10,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { Box, Typography, TextField, IconButton } from '@mui/material';
+import ToastMessage from '../common/toast-message';
 
 interface VitalsModalProps {
   open: boolean;
@@ -38,8 +39,11 @@ const VitalsModal: React.FC<VitalsModalProps> = ({
     },
     validationSchema: formValidationSchema,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
       handleSubmit();
+      ToastMessage({
+        icon: 'success', // Use error instead of success for invalid credentials
+        title: 'vitals submitted successfully.',
+      });
     },
   });
 

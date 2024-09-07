@@ -17,7 +17,7 @@ export function GuestGuard({
   children,
 }: GuestGuardProps): React.JSX.Element | null {
   const router = useRouter();
-  const { user, error, isLoading } = useUser();
+  const { user, error, isLoading, checked } = useUser();
   const [isChecking, setIsChecking] = React.useState<boolean>(true);
 
   const checkPermissions = async (): Promise<void> => {
@@ -36,7 +36,12 @@ export function GuestGuard({
         icon: 'success', // Use error instead of success for invalid credentials
         title: 'User is logged in, redirecting to dashboard.',
       });
-      router.replace(paths['patient-dashboard']);
+      if (checked) {
+        router.replace(paths['doctor-dashboard']);
+      } else {
+        router.replace(paths['patient-dashboard']);
+      }
+
       return;
     }
 

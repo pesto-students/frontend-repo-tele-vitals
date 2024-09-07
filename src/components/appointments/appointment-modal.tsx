@@ -18,6 +18,7 @@ import {
   IconButton,
   Autocomplete,
 } from '@mui/material';
+import ToastMessage from '../common/toast-message';
 
 interface VitalsModalProps {
   open: boolean;
@@ -60,14 +61,17 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({
       dateTime: null,
     },
     validationSchema: formValidationSchema,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: () => {
       handleSubmit();
+      ToastMessage({
+        icon: 'success', // Use error instead of success for invalid credentials
+        title: 'Your appointment request has been successfully submitted.',
+      });
     },
   });
   const options = [
-    { label: 'The Shawshank Redemption', year: 1994 },
-    { label: 'The Godfather', year: 1972 },
+    { label: 'Jon Due', year: 1994 },
+    { label: 'Rahul Gupta', year: 1972 },
   ];
   return (
     <Dialog

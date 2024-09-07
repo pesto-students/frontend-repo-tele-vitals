@@ -31,6 +31,7 @@ export interface SignInWithOAuthParams {
 export interface SignInWithPasswordParams {
   username: string;
   password: string;
+  checked: boolean;
 }
 
 export interface ResetPasswordParams {
@@ -55,8 +56,7 @@ class AuthClient {
   async signInWithPassword(
     params: SignInWithPasswordParams
   ): Promise<void> {
-    const { username, password } = params;
-
+    const { username, password, checked } = params;
     // Make API request
 
     // We do not handle the API, so we'll check if the credentials match with the hardcoded ones.
@@ -70,6 +70,7 @@ class AuthClient {
 
     const token = generateToken();
     localStorage.setItem('custom-auth-token', token);
+    localStorage.setItem('checked', String(checked));
   }
 
   async resetPassword(_: ResetPasswordParams): Promise<{ error?: string }> {
@@ -80,17 +81,17 @@ class AuthClient {
     return { error: 'Update reset not implemented' };
   }
 
-  async getUser(): Promise<{ data?: User | null; error?: string }> {
+  async getUser(): Promise<{ data?: User | null; error?: string,checked: boolean }> {
     // Make API request
 
     // We do not handle the API, so just check if we have a token in localStorage.
     const token = localStorage.getItem('custom-auth-token');
-
+    const checked = localStorage.getItem('checked') === 'true';
     if (!token) {
-      return { data: null };
+      return { data: null, checked:false };
     }
 
-    return { data: user };
+    return { data: user,checked };
   }
 
   async signOut(): Promise<{ error?: string }> {
