@@ -1,5 +1,6 @@
 'use client';
-
+import axios from 'axios';
+import API_ENDPOINTS from '@/const/ApiEndPoints';
 import ToastMessage from '@/components/common/toast-message';
 import type { User } from '@/types/user';
 
@@ -39,14 +40,41 @@ export interface ResetPasswordParams {
 }
 
 class AuthClient {
-  async signUp(_: SignUpParams): Promise<{ error?: string }> {
-    // Make API request
-
-    // We do not handle the API, so we'll just generate a token and store it in localStorage.
-    const token = generateToken();
-    localStorage.setItem('custom-auth-token', token);
-
-    return {};
+  async signUp(params: SignUpParams): Promise<{ error?: string }> {
+    try {
+      console.log(params)
+      // Make the API request to signup
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_URL}${API_ENDPOINTS.AUTH.CREATE_USER}`, // API endpoint
+        {
+          username: params.username,
+          email: params.email,
+          password: params.password,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json', // Example of specifying content type
+          },
+        }
+      );
+  
+      // Assuming API returns a token on successful signup
+      const { data } = response;
+  
+      if (data.token) {
+        // Store token in localStorage
+        localStorage.setItem('custom-auth-token', data.token);
+        return {}; // Return empty object for successful signup
+      } else {
+        // Handle case where token is not returned (unexpected response)
+        return { error: 'Signup failed. Please try again.' };
+      }
+    } catch (error: any) {
+      // Handle API error
+      return {
+        error: error.response?.data?.message || 'Something went wrong during signup.',
+      };
+    }
   }
 
   async signInWithOAuth(_: SignInWithOAuthParams): Promise<{ error?: string }> {
@@ -57,20 +85,49 @@ class AuthClient {
     params: SignInWithPasswordParams
   ): Promise<void> {
     const { username, password, checked } = params;
-    // Make API request
-
-    // We do not handle the API, so we'll check if the credentials match with the hardcoded ones.
-    if (username !== 'himanshu@gmail.com' || password !== 'Himanshu@123') {
-      ToastMessage({
-        icon: 'error', // Use error instead of success for invalid credentials
-        title: 'Invalid credentials. Please try again.',
+    try {
+      // Make the API request using Axios
+      const response = await axios.post(`${API_ENDPOINTS.MODULE_BASE_URL.AUTH}${API_ENDPOINTS.AUTH.LOGIN_USER}`, {
+        username,
+        password,
       });
-      return;
+  
+      // Assuming the API returns a token and success status
+      const { data } = response;
+  
+      if (data.token) {
+        // Save token and other data in localStorage if login is successful
+        localStorage.setItem('custom-auth-token', data.token);
+        localStorage.setItem('checked', String(checked));
+        
+        // Show success message
+        ToastMessage({
+          icon: 'success',
+          title: 'Login successful!',
+        });
+      } else {
+        // Handle case where login is unsuccessful but no error is thrown
+        ToastMessage({
+          icon: 'error',
+          title: 'Invalid credentials. Please try again.',
+        });
+      }
+    } catch (error) {
+      // Handle errors (like incorrect username/password or network issues)
+      if (axios.isAxiosError(error) && error.response) {
+        const errorMsg = error.response.data?.message || 'Login failed';
+        ToastMessage({
+          icon: 'error',
+          title: errorMsg,
+        });
+      } else {
+        // Network error or unexpected error
+        ToastMessage({
+          icon: 'error',
+          title: 'Something went wrong. Please try again later.',
+        });
+      }
     }
-
-    const token = generateToken();
-    localStorage.setItem('custom-auth-token', token);
-    localStorage.setItem('checked', String(checked));
   }
 
   async resetPassword(_: ResetPasswordParams): Promise<{ error?: string }> {

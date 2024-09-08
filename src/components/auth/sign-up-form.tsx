@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import {
   Grid,
   Typography,
@@ -20,6 +21,8 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import HomeImage from '@/components/home-image';
+import { authClient } from '@/lib/auth/client';
+import { useUser } from '@/hooks/use-user';
 import { paths } from '@/paths';
 
 const formValidationSchema = object({
@@ -33,6 +36,8 @@ const formValidationSchema = object({
 });
 
 const SignUpForm: React.FC = () => {
+  const router = useRouter();
+  const { checkSession } = useUser();
   const [hiddenPassword, setHiddenPassword] = useState(true);
   const [hiddenConformPassword, setHiddenConformPassword] = useState(true);
 
@@ -45,8 +50,19 @@ const SignUpForm: React.FC = () => {
       checked: false,
     },
     validationSchema: formValidationSchema,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: async (values) => {
+      try {
+        await authClient.signUp(values);
+
+        // Refresh the auth state
+        await checkSession?.();
+
+        // Refresh the router (GuestGuard handles redirect after refresh)
+        router.refresh();
+      } catch (err) {
+        console.error('An error occurred during sign-in:', err);
+        // setIsPending(false);
+      }
     },
   });
   /**
