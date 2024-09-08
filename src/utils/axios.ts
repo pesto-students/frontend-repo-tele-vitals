@@ -39,7 +39,7 @@ export const initializeAxios = () => {
 
   axios.defaults.headers.common = headersCommonOptions;
 
-  axios.interceptors.request.use((req) => {
+  axios.interceptors.request.use((req: any) => {
     numberOfApiCallsPending += 1;
 
     if (req.loader !== false) {

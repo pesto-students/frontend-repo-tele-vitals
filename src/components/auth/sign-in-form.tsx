@@ -46,8 +46,8 @@ const SignInForm: React.FC = () => {
   };
   const formikForm = useFormik({
     initialValues: {
-      username: 'himanshu@gmail.com',
-      password: 'Himanshu@123',
+      email: 'user2@user.com',
+      password: '123456',
       checked: false,
     },
     validationSchema: formValidationSchema,

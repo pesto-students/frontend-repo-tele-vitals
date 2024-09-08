@@ -30,7 +30,7 @@ export interface SignInWithOAuthParams {
 }
 
 export interface SignInWithPasswordParams {
-  username: string;
+  email: string;
   password: string;
   checked: boolean;
 }
@@ -84,11 +84,11 @@ class AuthClient {
   async signInWithPassword(
     params: SignInWithPasswordParams
   ): Promise<void> {
-    const { username, password, checked } = params;
+    const { email, password, checked } = params;
     try {
       // Make the API request using Axios
       const response = await axios.post(`${API_ENDPOINTS.MODULE_BASE_URL.AUTH}${API_ENDPOINTS.AUTH.LOGIN_USER}`, {
-        username,
+        email,
         password,
       });
   

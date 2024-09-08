@@ -7,7 +7,7 @@ const API_ENDPOINTS = {
     USER_PROFILE: 'profile/',
   },
   AUTH: {
-    LOGIN_USER: 'login/',
+    LOGIN_USER: 'user/login/',
     LOGOUT_USER: 'logout/',
     CREATE_USER: 'user/register',
     GET_ACCESS_TOKEN: 'token/',
